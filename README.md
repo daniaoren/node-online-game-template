@@ -1,3 +1,7 @@
+# Based on NodeJS Online Game Template
+Try integrating the template with Phaser.io for convenient javascript socket game development
+
+
 # NodeJS Online Game Template
 
 Barebone NodeJS project for any multiplayer games.
