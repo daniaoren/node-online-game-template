@@ -5,13 +5,16 @@ var socket;
 var screenWidth = window.innerWidth;
 var screenHeight = window.innerHeight;
 
-var c = document.getElementById('cvs');
-var canvas = c.getContext('2d');
-c.width = screenWidth; c.height = screenHeight;
+// var c = document.getElementById('cvs');
+// var canvas = c.getContext('2d');
+// c.width = screenWidth; c.height = screenHeight;
 
 var KEY_ENTER = 13;
 
-var game = new Game();
+var game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameAreaWrapper', { preload: preload, create: create });
+game.handleNetwork = handleNetwork;
+game.handleLogic = handleLogic;
+game.handleGraphics = handleGraphics;
 
 function startGame() {
     playerName = playerNameInput.value.replace(/(<([^>]+)>)/ig, '');
@@ -62,24 +65,24 @@ function SetupSocket(socket) {
   game.handleNetwork(socket);
 }
 
-window.requestAnimFrame = (function(){
-    return  window.requestAnimationFrame       ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame    ||
-            function( callback ){
-                window.setTimeout(callback, 1000 / 60);
-            };
-})();
+// window.requestAnimFrame = (function(){
+//     return  window.requestAnimationFrame       ||
+//             window.webkitRequestAnimationFrame ||
+//             window.mozRequestAnimationFrame    ||
+//             function( callback ){
+//                 window.setTimeout(callback, 1000 / 60);
+//             };
+// })();
 
-function animloop(){
-    requestAnimFrame(animloop);
-    gameLoop();
-}
+// function animloop(){
+//     requestAnimFrame(animloop);
+//     gameLoop();
+// }
 
-function gameLoop() {
-  game.handleLogic();
-  game.handleGraphics(canvas);
-}
+// function gameLoop() {
+//   game.handleLogic();
+//   game.handleGraphics(canvas);
+// }
 
 window.addEventListener('resize', function() {
     screenWidth = window.innerWidth;
