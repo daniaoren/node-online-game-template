@@ -2,27 +2,17 @@ var playerName;
 var playerNameInput = document.getElementById('playerNameInput');
 var socket;
 
-var screenWidth = window.innerWidth;
-var screenHeight = window.innerHeight;
-
-// var c = document.getElementById('cvs');
-// var canvas = c.getContext('2d');
-// c.width = screenWidth; c.height = screenHeight;
-
 var KEY_ENTER = 13;
 
 var game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameAreaWrapper', { preload: preload, create: create });
 game.handleNetwork = handleNetwork;
-game.handleLogic = handleLogic;
-game.handleGraphics = handleGraphics;
 
 function startGame() {
     playerName = playerNameInput.value.replace(/(<([^>]+)>)/ig, '');
     document.getElementById('gameAreaWrapper').style.display = 'block';
     document.getElementById('startMenuWrapper').style.display = 'none';
     socket = io();
-    SetupSocket(socket);
-    animloop();
+    game.handleNetwork(socket);
 }
 
 // check if nick is valid alphanumeric characters (and underscores)
@@ -60,33 +50,3 @@ window.onload = function() {
         }
     });
 };
-
-function SetupSocket(socket) {
-  game.handleNetwork(socket);
-}
-
-// window.requestAnimFrame = (function(){
-//     return  window.requestAnimationFrame       ||
-//             window.webkitRequestAnimationFrame ||
-//             window.mozRequestAnimationFrame    ||
-//             function( callback ){
-//                 window.setTimeout(callback, 1000 / 60);
-//             };
-// })();
-
-// function animloop(){
-//     requestAnimFrame(animloop);
-//     gameLoop();
-// }
-
-// function gameLoop() {
-//   game.handleLogic();
-//   game.handleGraphics(canvas);
-// }
-
-window.addEventListener('resize', function() {
-    screenWidth = window.innerWidth;
-    screenHeight = window.innerHeight;
-    c.width = screenWidth;
-    c.height = screenHeight;
-}, true);
